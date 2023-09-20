@@ -13,17 +13,70 @@ function writePassword() {
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
 
-function generatePassword() {
-  return "password";
+
+var lowCase;
+var upCase;
+var numbers;
+var specChar;
+
+//Maybe (probably?) need to rename the following generatePassword()
+
+
+
+function passCriteria() {
+var pwdLength = prompt("How many characters do you want in your password?", "Please enter a number between 8 and 128.");
+  if (pwdLength < 8 || pwdLength > 128 || "") {
+    alert("Your password must be between 8 and 128 characters. Please try again.");
+    passCriteria();
+  } else {
+    function characterChoices(){
+      var lowCaseChoice = prompt("Would you like to include lowercase letters? Y/ N").toUpperCase();
+      if (lowCaseChoice.startsWith("Y")) {
+        lowCase = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+      } else {
+        lowCase = null;
+      }
+      var upCaseChoice = prompt("Would you like to include uppercase letters? Y/N").toUpperCase();  
+      if (upCaseChoice.startsWith("Y")) {
+        upCase = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+      } else {
+        upCase = null;
+      }
+      var numberChoice = prompt("Would you like to include numbers? Y/N").toUpperCase();
+      if (numberChoice.startsWith("Y")) {
+        numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+      } else {
+        numbers = null;
+      }
+      var specCharChoice = prompt("Would you like to include special characters? Y/N").toUpperCase();
+      if (specCharChoice.startsWith("Y")) {
+        specChar = ['`', '~', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '_', '=', '+', '{', ']', '}', '<', '>', '?'];
+        createPassword();
+      } else {
+        specChar = null;
+        createPassword();
+      }
+      
+    }
+      
   }
-  
-// Clipboard of things to maybe copy/paste in future
+    characterChoices();
+    function createPassword() {
+      if ((lowCase === null) && (upCase === null) && (numbers === null) && (specChar === null)) {
+        alert("You must include at least one type of character.");
+        characterChoices();
+      } else {
+        
+      }
+    
+  }
+}
 
-var lowCase = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
-var upCase = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
-var wantNumbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-var specChar = ['`', '~', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '_', '=', '+', '{', ']', '}', '<', '>', '?'];
-
+passCriteria();
+console.log(lowCase);
+console.log(upCase);
+console.log(numbers);
+console.log(specChar);
 
 // var pwdLength;
 // var lowCase;
