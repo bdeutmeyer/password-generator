@@ -13,21 +13,21 @@ function writePassword() {
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
 
-
+//Starter code above, my code below
+var pwdLength;
 var lowCase;
 var upCase;
 var numbers;
 var specChar;
+var userChoices = [lowCase, upCase, numbers, specChar];
 
-//Maybe (probably?) need to rename the following generatePassword()
-
-
-
-function passCriteria() {
-var pwdLength = prompt("How many characters do you want in your password?", "Please enter a number between 8 and 128.");
+//Begin by making sure password length is in correct range
+function getCriteria() {
+pwdLength = prompt("How many characters do you want in your password?", "Please enter a number between 8 and 128.");
   if (pwdLength < 8 || pwdLength > 128 || "") {
     alert("Your password must be between 8 and 128 characters. Please try again.");
-    passCriteria();
+    getCriteria();
+    //If number is 8-128, prompts for character choices; define variables as arrays for chosen characters, "null" for characters denied
   } else {
     function characterChoices(){
       var lowCaseChoice = prompt("Would you like to include lowercase letters? Y/ N").toUpperCase();
@@ -51,28 +51,32 @@ var pwdLength = prompt("How many characters do you want in your password?", "Ple
       var specCharChoice = prompt("Would you like to include special characters? Y/N").toUpperCase();
       if (specCharChoice.startsWith("Y")) {
         specChar = ['`', '~', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '_', '=', '+', '{', ']', '}', '<', '>', '?'];
-        createPassword();
-      } else {
+      } else { //Check to make sure that at least one category of characters has been chosen
         specChar = null;
-        createPassword();
-      }
-      
-    }
-      
-  }
-    characterChoices();
-    function createPassword() {
-      if ((lowCase === null) && (upCase === null) && (numbers === null) && (specChar === null)) {
-        alert("You must include at least one type of character.");
-        characterChoices();
-      } else {
-        
-      }
-    
+        if ((lowCase === null) && (upCase === null) && (numbers === null) && (specChar === null)) {
+          alert("You must include at least one type of character.");
+          characterChoices();
+        } else { //Generate password according to user criteria
+          generatePassword();
+        } //else end
+      } //parent else end
+    }//characterChoices end
+  }//gigantic mother else end
+  characterChoices();
+}//getCriteria end
+getCriteria();
+
+function generatePassword() {
+  for (let i = 0; i < pwdLength.length + 1; i++) {
+    generatePassword = userChoices[i];
   }
 }
 
-passCriteria();
+generatePassword();
+
+
+
+console.log(pwdLength);
 console.log(lowCase);
 console.log(upCase);
 console.log(numbers);
@@ -90,7 +94,7 @@ console.log(specChar);
   -WHEN the user puts in a number between 8 and 128, THEN that user input should be stored in an object, and the lowercase prompt should trigger.
 The lowercase prompt asks the user if they would like to include lowercase letters (Y/N).
   -WHEN the user puts in a y or n in response (how to allow for casing/whole word vs initial variance??), THEN that user input should be stored in an object, and the uppercase prompt should trigger.
-Follow same process for uppercase and numbers. For the special characters prompt, after the user input is stored in the object, the generate password function should trigger.
+Follow same process for uppercase and numbers. For the special characters prompt, after the user input is stored in the object, IF there is at least one category of characters selected, the generate password function should trigger. IF NO category has been selected, it should display an alert that the user must choose at least one type of character to include, and go back to the beginning of the series of character prompts.
 
 To generate the password, the computer will need to iterate through all the possible choices, choosing random characters and including at least one choice from each of the conditions specified by the user, until the desired number of characters is reached. The computer will then need to spit out the randomly generated password. 
   */
